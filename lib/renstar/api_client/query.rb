@@ -1,5 +1,5 @@
 module Renstar
-  module APIClient
+  class APIClient
     module Query
       def info
         API.request("query/info")
