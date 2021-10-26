@@ -1,3 +1,4 @@
+require_relative '../api_client'
 module Renstar
   class APIClient
     module Query
