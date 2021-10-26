@@ -1,0 +1,23 @@
+PATH
+  remote: .
+  specs:
+    renstar (0.1.0)
+      json
+      ssdp
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.6.1)
+    rake (13.0.6)
+    ssdp (1.1.7)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  rake (~> 13.0)
+  renstar!
+
+BUNDLED WITH
+   2.2.22
