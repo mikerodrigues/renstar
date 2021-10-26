@@ -1,10 +1,12 @@
 require 'ssdp'
+require_relative 'api_client'
 
 
 module Renstar
   class Thermostat
     SERVICE = "venstar:thermostat:ecp"
     DEFAULT_TIMEOUT = 5
+    include API
 
     attr_reader :location
     attr_reader :usn
