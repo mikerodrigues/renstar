@@ -1,7 +1,7 @@
 require 'json'
 require 'net/http'
 
-require_relative './query'
+require_relative 'api_client/query'
 
 module Renstar
   class APIClient
