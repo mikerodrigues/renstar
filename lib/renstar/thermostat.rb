@@ -6,7 +6,6 @@ module Renstar
   class Thermostat
     SERVICE = "venstar:thermostat:ecp"
     DEFAULT_TIMEOUT = 5
-    include APIClient
 
     attr_reader :location
     attr_reader :usn
@@ -14,6 +13,7 @@ module Renstar
     def initialize( location, usn)
       @location = location
       @usn = usn
+      @api_client = APIClient.new(location)
     end
 
     def self.search()
