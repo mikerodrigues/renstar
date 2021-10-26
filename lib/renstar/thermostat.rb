@@ -6,7 +6,7 @@ module Renstar
   class Thermostat
     SERVICE = "venstar:thermostat:ecp"
     DEFAULT_TIMEOUT = 5
-    include API
+    include APIClient
 
     attr_reader :location
     attr_reader :usn
