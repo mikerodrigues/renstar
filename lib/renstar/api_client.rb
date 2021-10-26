@@ -13,7 +13,7 @@ module Renstar
 
     def request(endpoint)
       uri = URI(location + endpoint)
-      response = HTTP.get(uri)
+      response = Net::HTTP.get(uri)
       return JSON.parse(response)
     end
 
