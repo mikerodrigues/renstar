@@ -18,8 +18,8 @@ module Renstar
     end
 
     include Query
-    include Control
-    include Settings
+    #include Control
+    #include Settings
   end
 end
 
