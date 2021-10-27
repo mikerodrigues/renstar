@@ -24,7 +24,7 @@ module Renstar
     include Control
     include Settings
 
-    @api_ref = JSON.parse(File.read("./api_client/api.json"))
+    @api_ref = JSON.parse(File.read(File.join(__dir__, "./api_client/api.json")))
     def lookup(type, key, value)
      return  @api_ref[type][key]['description']
     end

@@ -1,9 +1,10 @@
 require_relative '../api_client'
+require_relative 'info'
 module Renstar
   module APIClient
     module Query
       def info
-        get("query/info")
+        Info.new(get("query/info"))
       end
 
       def sensors
