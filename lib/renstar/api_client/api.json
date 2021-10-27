@@ -1,0 +1,140 @@
+{
+	"info": {
+		"mode": {
+			"description": "Current thermostat mode",
+			"values": {
+				"0": "Off",
+				"1": "Heat",
+				"2": "Cool",
+				"3": "Auto"
+			}
+		},
+		"state": {
+			"description": "Current thermostat state",
+			"values": {
+				"0": "Idle",
+				"1": "Heating",
+				"2": "Cooling",
+				"3": "Lockout",
+				"4": "Error"
+			}
+		},
+		"fan": {
+			"description": "Current fan setting",
+			"values": {
+				"0": "Auto",
+				"1": "On"
+			}
+		},
+		"fanstate": {
+			"description": "Current fan state",
+			"values": {
+				"0": "Off",
+				"1": "On"
+			}
+		},
+		"tempunits": {
+			"description": "Current temperature units",
+			"values": {
+				"0": "Fahrenheit",
+				"1": "Celsius"
+			}
+		},
+		"schedule": {
+			"description": "Current schedule state",
+			"values": {
+				"0": "Disabled",
+				"1": "Enabled"
+			}
+		},
+		"schedulepart": {
+			"description": "Current schedule part",
+			"values": {
+				"0": "Occupied 1 or morning",
+				"1": "Occupied 2 or day",
+				"2": "Occupied 3 or eventing",
+				"3": "Unoccupied or night",
+				"255": "Inactive"
+			}
+		},
+		"away": {
+			"description": "Current away state",
+			"values": {
+				"0": "Home",
+				"1": "Away"
+			},
+			"requires": "residential"
+		},
+		"override": {
+			"description": "Current override state",
+			"values": {
+				"0": "Off",
+				"1": "On"
+			},
+			"requires": "commercial"
+		},
+		"overridetime": {
+			"description": "Time left in override",
+			"values": "raw",
+			"requires": "commercial"
+		},
+		"forceunocc": {
+			"description": "Current forceunocc state",
+			"values": {
+				"0": "Off",
+				"1": "On"
+			},
+			"requires": "commercial"
+		},
+		"spacetemp": {
+			"description": "Current space temperature",
+			"values": "raw"
+		},
+		"heattemp": {
+			"description": "Current heat to temperature",
+			"values": "raw"
+		},
+		"cooltemp": {
+			"description": "Current cool to temperature",
+			"values": "raw"
+		},
+		"cooltempmin": {
+			"description": "Minimum cool to temperature",
+			"values": "raw"
+		},
+		"cooltempmax": {
+			"description": "Maximum cool to temperature",
+			"values": "raw"
+		},
+		"heattempmin": {
+			"description": "Minimum heat to temperature",
+			"values": "raw"
+		},
+		"heattempmax": {
+			"description": "Maximum heat to temperature",
+			"values": "raw"
+		},
+		"setpoitndelta": {
+			"description": "Minimum temperature difference of heat and cool temperatures",
+			"values": "raw"
+		},
+		"hum": {
+			"description": "Current humidity if available",
+			"values": "raw"
+		},
+		"availablemodes": {
+			"description": "Available thermostat modes",
+			"values": {
+				"0": "all modes",
+				"1": "heat/cool only",
+				"2": "heat only",
+				"3": "cool only"
+			}
+		}
+	}
+}
+
+
+
+
+

@@ -1,21 +1,21 @@
 require_relative '../api_client'
 module Renstar
-  class APIClient
+  module APIClient
     module Query
       def info
-        request("query/info")
+        get("query/info")
       end
 
-      def senors
-        request("query/sensors")
+      def sensors
+        get("query/sensors")
       end
 
       def runtimes
-        request("query/runtimes")
+        get("query/runtimes")
       end
 
       def alerts
-        request("query/alerts")
+        get("query/alerts")
       end
     end
   end

@@ -10,10 +10,11 @@ module Renstar
     attr_reader :location
     attr_reader :usn
 
+    include APIClient
+
     def initialize( location, usn)
       @location = location
       @usn = usn
-      @api_client = APIClient.new(location)
     end
 
     def self.search()
