@@ -1,34 +1,65 @@
+# frozen_string_literal: true
+
 require 'ssdp'
 require_relative 'api_client'
 
 module Renstar
+  # Thermostat object
+  # Contains convenience methods along the lines of what is provided in the
+  # mobile app, website, or control panel, e.g. Heat, Cool, Auto, Fan, Schedule
+  # Home/Away, and Off
+  #
   class Thermostat
-    SERVICE = "venstar:thermostat:ecp"
+    SERVICE = 'venstar:thermostat:ecp'
     DEFAULT_TIMEOUT = 5
 
-    attr_reader :location
-    attr_reader :usn
-    attr_reader :info
+    attr_reader :location, :usn, :cached_info
 
     include APIClient
 
     def initialize(location, usn)
       @location = location
       @usn = usn
-      @cached_info = self.info
+      @cache_timestamp = Time.now
+      @cached_info = info
     end
 
-    def self.search()
+    def self.search
       ssdp = SSDP::Consumer.new
-      thermos = ssdp.search( :service => SERVICE, :timeout => DEFAULT_TIMEOUT )
-      thermos.map do | thermo |
+      thermos = ssdp.search(service: SERVICE, timeout: DEFAULT_TIMEOUT)
+      thermos.map do |thermo|
         location = thermo[:params]['Location']
         usn = thermo[:params]['USN']
         Renstar::Thermostat.new(location, usn)
       end
     end
 
+    def update
+      @cache_timestamp = Time.now
+      @cached_info = info
+    end
+
+    def off
+      response = control("mode": 0, "cooltemp": @cached_info.cooltemp, "heattemp": @cached_info.heattemp)
+      update
+      response
+    end
+
+    def heat(heattemp = nil)
+      update
+      if heattemp
+        cooltemp = heattemp - 1.0
+      else
+        cooltemp = @cached_info.cooltemp
+        heattemp = @cached_info.heattemp
+      end
+      response = control("mode": 1, "cooltemp": cooltemp, "heattemp": heattemp)
+      update
+      response
+    end
+
     def cool(cooltemp = nil)
+      update
       if cooltemp
         heattemp = cooltemp - 1.0
         # heattemp = cooltemp - @cached_info.setpointdelta
@@ -36,8 +67,82 @@ module Renstar
         cooltemp = @cached_info.cooltemp
         heattemp = @cached_info.heattemp
       end
-      mode =  2
-      control("mode": mode, "cooltemp": cooltemp, "heattemp": heattemp)
+      response = control("mode": 2, "cooltemp": cooltemp, "heattemp": heattemp)
+      update
+      response
+    end
+
+    def auto(heattemp = nil, cooltemp = nil)
+      update
+      if heattemp.nil? & cooltemp.nil?
+        heattemp = @cached_info.heattemp
+        cooltemp = @cached_info.cooltemp
+      elsif heattemp && cooltemp.nil?
+        cooltemp = @cached_info.cooltemp
+      elsif heattemp.nil? && cooltemp
+        heattemp = @cached_info.heattemp
+      end
+
+      # ensure we're not violating set point delta
+      if cooltemp - heattemp < @cached_info.setpointdelta
+        cooltemp = heattemp + @cached_info.setpointdelta
+        warn("Adjusting cooltemp to #{cooltemp} #{@cached_info.tempunits} to honor setpoint delta")
+      end
+      response = control("mode": 3, "cooltemp": cooltemp, "heattemp": heattemp)
+      update
+      response
+    end
+
+    def fan_off
+      response = control("fan": 0)
+      update
+      response
+    end
+
+    def fan_on
+      response = control("fan": 1)
+      update
+      response
+    end
+
+    def fan_toggle
+      if @cached_info.fan == 1
+        fan_off
+      else
+        fan_on
+      end
+    end
+
+    def schedule_off
+      response = settings("schedule": 0)
+      update
+      response
+    end
+
+    def schedule_on
+      response = settings("schedule": 1)
+      update
+      response
+    end
+
+    def schedule_toggle
+      if @cached_info.schedule == 1
+        schedule_off
+      else
+        schedule_on
+      end
+    end
+
+    def home
+      response = settings("away": 0)
+      update
+      response
+    end
+
+    def away
+      response = settings("away": 1)
+      update
+      response
     end
   end
 end
