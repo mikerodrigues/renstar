@@ -11,13 +11,15 @@ module Renstar
     def get(endpoint)
       uri = URI(location + endpoint)
       response = Net::HTTP.get(uri)
+      binding.pry
       return JSON.parse(response)
     end
 
     def post(endpoint, options = {})
       uri = URI(location + endpoint)
       response = Net::HTTP.post_form(uri, options)
-      return JSON.parse(response)
+      binding.pry
+      return JSON.parse(response.body)
     end
 
     include Query
@@ -25,8 +27,15 @@ module Renstar
     include Settings
 
     @api_ref = JSON.parse(File.read(File.join(__dir__, "./api_client/api.json")))
-    def lookup(type, key, value)
-     return  @api_ref[type][key]['description']
+    def self.key_to_description(type, key)
+       @api_ref.fetch(type, nil)&.fetch(key, nil)&.fetch('description', nil) || key
+    end
+    def self.value_to_formatted(type, key, value)
+      formatted_value = if @api_ref.fetch(type, nil)&.fetch(key, nil)&.fetch('values', nil) == "raw" then
+                          value
+                        else
+                          @api_ref.fetch(type, nil)&.fetch(key, nil)&.fetch('values', nil)&.fetch(value.to_s, nil) || value
+                        end
     end
 
   end

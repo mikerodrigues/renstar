@@ -1,5 +1,9 @@
 {
 	"info": {
+		"name": {
+			"description": "The name of the thermostat",
+			"values": "raw"
+		},
 		"mode": {
 			"description": "Current thermostat mode",
 			"values": {
@@ -114,8 +118,8 @@
 			"description": "Maximum heat to temperature",
 			"values": "raw"
 		},
-		"setpoitndelta": {
-			"description": "Minimum temperature difference of heat and cool temperatures",
+		"setpointdelta": {
+			"description": "Minimum temperature difference \n of heat and cool temperatures",
 			"values": "raw"
 		},
 		"hum": {

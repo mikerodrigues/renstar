@@ -1,7 +1,6 @@
 require 'ssdp'
 require_relative 'api_client'
 
-
 module Renstar
   class Thermostat
     SERVICE = "venstar:thermostat:ecp"
@@ -9,12 +8,14 @@ module Renstar
 
     attr_reader :location
     attr_reader :usn
+    attr_reader :info
 
     include APIClient
 
-    def initialize( location, usn)
+    def initialize(location, usn)
       @location = location
       @usn = usn
+      @cached_info = self.info
     end
 
     def self.search()
@@ -25,6 +26,18 @@ module Renstar
         usn = thermo[:params]['USN']
         Renstar::Thermostat.new(location, usn)
       end
+    end
+
+    def cool(cooltemp = nil)
+      if cooltemp
+        heattemp = cooltemp - 1.0
+        # heattemp = cooltemp - @cached_info.setpointdelta
+      else
+        cooltemp = @cached_info.cooltemp
+        heattemp = @cached_info.heattemp
+      end
+      mode =  2
+      control("mode": mode, "cooltemp": cooltemp, "heattemp": heattemp)
     end
   end
 end

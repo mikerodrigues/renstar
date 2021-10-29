@@ -8,10 +8,16 @@ module Renstar
         end
       end
 
-      def to_s
+      def to_h
+        return @raw_hash
+      end
+
+      def pretty_summary
         @raw_hash.map do |key, value|
-          APIClient.lookup(:info, key, value)
-        end.join(",\n")
+          description = APIClient.key_to_description("info", key)
+          formatted_value = APIClient.value_to_formatted("info", key, value)
+          sprintf("%-35s %s\n", description, formatted_value)
+        end.join()
       end
     end
   end
