@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Renstar
   module APIClient
+    # Base API Object class from which other objects inherit
     class APIObject
       def initialize(raw_hash)
         @raw_hash = raw_hash
@@ -20,13 +23,17 @@ module Renstar
         @raw_hash
       end
 
-      def pretty_summary
+      def human_readable
         @raw_hash.map do |key, value|
           description = APIClient.key_to_description('runtimes', key)
           formatted_value = APIClient.value_to_formatted('runtimes', key, value)
           format("%-35<description>s %<formatted_value>s\n",
                  { description: description, formatted_value: formatted_value })
         end.join
+      end
+
+      def pp
+        puts human_readable
       end
     end
   end

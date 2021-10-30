@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../api_object'
+
 module Renstar
   module APIClient
     # An abstraction to the info hash that gets returned from the API
