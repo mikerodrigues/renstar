@@ -1,6 +1,6 @@
 # Renstar
 
-Renstar is a Ruby SDK for interacting with the Venstar API.
+Renstar is a Ruby SDK for interacting with the Venstar Thermostat Local API.
 
 You can control your thermostat programmatically!
 
