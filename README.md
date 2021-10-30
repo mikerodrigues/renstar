@@ -1,8 +1,8 @@
 # Renstar
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/renstar`. To experiment with that code, run `bin/console` for an interactive prompt.
+Renstar is a Ruby SDK for interacting with the Venstar API.
 
-TODO: Delete this and the text above, and describe your gem
+You can control your thermostat programmatically!
 
 ## Installation
 
@@ -22,7 +22,57 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+* Search for thermostats on the LAN, return the first one found:
+```ruby
+thermo = Renstar::Thermostat.search.first
+```
+
+* Heat to 80 degrees:
+```ruby
+thermo.heat(80)
+```
+
+* Cool to 60 degrees:
+```ruby
+thermo.cool(60)
+```
+
+* Automatically keep the temp between 70 and 74 degrees:
+```ruby
+thermo.auto(70, 74)
+```
+
+* Turn off heeating and/or cooling
+```ruby
+thermo.off
+```
+
+* Control the fan:
+```ruby
+thermo.fan_on
+
+thermo.fan_off
+
+thermo.fan_toggle
+```
+
+* Control the schedule:
+```ruby
+thermo.schedule_on
+
+thermo.scheduel_off
+
+thermo.schedule_toggle
+```
+
+* Set Home/Away:
+```ruby
+thermo.home
+
+thermo.away
+```
+
+
 
 ## Development
 
