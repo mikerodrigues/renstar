@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative '../api_client'
-require_relative 'info'
-require_relative 'sensor'
-require_relative 'runtime'
-require_relative 'alert'
+require_relative './api_objects/info'
+require_relative './api_objects/sensor'
+require_relative './api_objects/runtime'
+require_relative './api_objects/alert'
 module Renstar
   module APIClient
     # Interface to the "Query" portion of the API

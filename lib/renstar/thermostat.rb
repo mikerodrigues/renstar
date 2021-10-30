@@ -24,9 +24,9 @@ module Renstar
       @cached_info = info
     end
 
-    def self.search
+    def self.search(timeout = DEFAULT_TIMEOUT)
       ssdp = SSDP::Consumer.new
-      thermos = ssdp.search(service: SERVICE, timeout: DEFAULT_TIMEOUT)
+      thermos = ssdp.search(service: SERVICE, timeout: timeout)
       thermos.map do |thermo|
         location = thermo[:params]['Location']
         usn = thermo[:params]['USN']
@@ -48,7 +48,7 @@ module Renstar
     def heat(heattemp = nil)
       update
       if heattemp
-        cooltemp = heattemp - 1.0
+        cooltemp = heattemp + 1.0
       else
         cooltemp = @cached_info.cooltemp
         heattemp = @cached_info.heattemp
@@ -73,15 +73,11 @@ module Renstar
     end
 
     def auto(heattemp = nil, cooltemp = nil)
+      # we want to make sure we have the latest values
+      # so we'll update then set the defaults
       update
-      if heattemp.nil? & cooltemp.nil?
-        heattemp = @cached_info.heattemp
-        cooltemp = @cached_info.cooltemp
-      elsif heattemp && cooltemp.nil?
-        cooltemp = @cached_info.cooltemp
-      elsif heattemp.nil? && cooltemp
-        heattemp = @cached_info.heattemp
-      end
+      heattemp ||= @cached_info.heattemp
+      cooltemp ||= @cached_info.cooltemp
       response = control("mode": 3, "cooltemp": cooltemp, "heattemp": heattemp)
       update
       response
