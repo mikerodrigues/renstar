@@ -82,12 +82,6 @@ module Renstar
       elsif heattemp.nil? && cooltemp
         heattemp = @cached_info.heattemp
       end
-
-      # ensure we're not violating set point delta
-      if cooltemp - heattemp < @cached_info.setpointdelta
-        cooltemp = heattemp + @cached_info.setpointdelta
-        warn("Adjusting cooltemp to #{cooltemp} #{@cached_info.tempunits} to honor setpoint delta")
-      end
       response = control("mode": 3, "cooltemp": cooltemp, "heattemp": heattemp)
       update
       response

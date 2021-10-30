@@ -2,6 +2,8 @@
 
 module Renstar
   module APIClient
+    # Represents an installed sensor in the system
+    # Returns the value of the sensor
     class Sensor
       def initialize(sensor_hash)
         @raw_hash = sensor_hash

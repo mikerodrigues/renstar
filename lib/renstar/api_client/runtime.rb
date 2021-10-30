@@ -2,7 +2,10 @@
 
 module Renstar
   module APIClient
-    class Runtime 
+    # Represents a day of "runtime"
+    # Breaks down how much time the system spent in various states
+    # like heating or cooling.
+    class Runtime
       def initialize(runtime_hash)
         @raw_hash = runtime_hash
         runtime_hash.each do |key, value|

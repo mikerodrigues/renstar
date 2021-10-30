@@ -135,9 +135,71 @@
 				"3": "cool only"
 			}
 		}
+	},
+	"sensors": {
+		"name": {
+			"description": "Sensor name",
+			"values": "raw"
+		},
+		"temp": {
+			"description": "Sensor temperature",
+			"values": "raw"
+		},
+		"hum": {
+			"description": "Humidity sensor if available",
+			"values": "raw"
+		}
+	},
+	"runtimes": {
+		"ts": {
+			"description": "Timestamp",
+			"values": "epoch"
+		},
+		"heat1": {
+			"description": "Stage 1 Heat runtime in minutes",
+			"values": "raw"
+		},
+		"heat2": {
+			"description": "Stage 2 Heat runtime in minutes",
+			"values": "raw"
+		},
+		"cool1": {
+			"description": "Stage 1 Cool runtime in minutes",
+			"values": "raw"
+		},
+		"cool2": {
+			"description": "Stage 2 Cool runtime in minutes",
+			"values": "raw"
+		},
+		"aux1": {
+			"description": "Stage 1 Auxiliary runtime in minutes",
+			"values": "raw"
+		},
+		"aux2": {
+			"description": "Stage 2 Auxiliary runtime in minutes",
+			"values": "raw"
+		},
+		"fc": {
+			"description": "Free Cooling runtime in minutes",
+			"values": "raw"
+		},
+		"ov": {
+			"description": "Override runtime in minutes",
+			"values": "raw"
+		}
+	},
+	"alerts": {
+		"name": {
+			"description": "Alert name",
+			"values": "raw"
+		},
+		"active": {
+			"description": "If the alert is active",
+			"values": "raw"
+		}
+
 	}
 }
-
 
 
 

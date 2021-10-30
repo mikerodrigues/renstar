@@ -34,8 +34,11 @@ module Renstar
     end
 
     def self.value_to_formatted(type, key, value)
-      if @api_ref.dig(type, key, 'values') == 'raw'
+      case @api_ref.dig(type, key, 'values')
+      when 'raw'
         value
+      when 'epoch'
+        Time.at(value)
       else
         @api_ref.dig(type, key, 'values', value.to_s) || value
       end

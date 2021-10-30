@@ -2,7 +2,10 @@
 
 module Renstar
   module APIClient
-    class Alert 
+    # Represents an Alert in venstar
+    # These alerts are for Air filter, Service, and UV Lamp
+    #
+    class Alert
       def initialize(alert_hash)
         @raw_hash = alert_hash
         alert_hash.each do |key, value|

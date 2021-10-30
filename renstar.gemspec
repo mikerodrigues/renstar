@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Control Venstar thermostats.'
   spec.description   = 'Control Venstar thermostats with Ruby via their local API.'
   spec.homepage      = 'https://github.com/mikerodrigues/renstar'
-  spec.required_ruby_version = '>= 2.4.0'
+  spec.required_ruby_version = '>= 3.0.0'
 
   spec.metadata['allowed_push_host'] = "TODO: Set to 'https://mygemserver.com'"
 
