@@ -2,14 +2,10 @@
 
 module Renstar
   module APIClient
-    # An abstraction to the info hash that gets returned from the API
-    # It defines getters and instance variables for each key/value pair in the
-    # info response from the API for clean access.
-    #
-    class Info
-      def initialize(info_hash)
-        @raw_hash = info_hash
-        info_hash.each do |key, value|
+    class Sensor
+      def initialize(sensor_hash)
+        @raw_hash = sensor_hash
+        sensor_hash.each do |key, value|
           instance_variable_set("@#{key}", value)
           define_singleton_method(key) do
             return instance_variable_get("@#{key}")
@@ -23,8 +19,8 @@ module Renstar
 
       def pretty_summary
         @raw_hash.map do |key, value|
-          description = APIClient.key_to_description('info', key)
-          formatted_value = APIClient.value_to_formatted('info', key, value)
+          description = APIClient.key_to_description('sensors', key)
+          formatted_value = APIClient.value_to_formatted('sensors', key, value)
           format("%-35<description>s %<formatted_value>s\n",
                  { description: description, formatted_value: formatted_value })
         end.join

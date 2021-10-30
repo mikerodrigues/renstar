@@ -2,6 +2,9 @@
 
 require_relative '../api_client'
 require_relative 'info'
+require_relative 'sensor'
+require_relative 'runtime'
+require_relative 'alert'
 module Renstar
   module APIClient
     # Interface to the "Query" portion of the API
@@ -12,15 +15,21 @@ module Renstar
       end
 
       def sensors
-        get('query/sensors')
+        get('query/sensors')['sensors'].map do |sensor|
+          Sensor.new(sensor)
+        end
       end
 
       def runtimes
-        get('query/runtimes')
+        get('query/runtimes')['runtimes'].map do |runtime|
+          Runtime.new(runtime)
+        end
       end
 
       def alerts
-        get('query/alerts')
+        get('query/alerts')['alerts'].map do |alert|
+          Alert.new(alert)
+        end
       end
     end
   end

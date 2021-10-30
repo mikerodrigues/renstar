@@ -30,18 +30,15 @@ module Renstar
     @api_ref = JSON.parse(File.read(File.join(__dir__, './api_client/api.json')))
 
     def self.key_to_description(type, key)
-      #      @api_ref.fetch(type, nil)&.fetch(key, nil)&.fetch('description', nil) || key
       @api_ref.dig(type, key, 'description') || key
     end
 
     def self.value_to_formatted(type, key, value)
-      # formatted_value = if @api_ref.fetch(type, nil)&.fetch(key, nil)&.fetch('values', nil) == 'raw'
-      formatted_value = if @api_ref.dig(type, key, 'values') == 'raw'
-                          value
-                        else
-                          # @api_ref.fetch(type, nil)&.fetch(key, nil)&.fetch('values', nil)&.fetch(value.to_s, nil) || value
-                          @api_ref.dig(type, key, 'values', value.to_s) || value
-                        end
+      if @api_ref.dig(type, key, 'values') == 'raw'
+        value
+      else
+        @api_ref.dig(type, key, 'values', value.to_s) || value
+      end
     end
   end
 end
