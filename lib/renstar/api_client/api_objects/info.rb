@@ -6,7 +6,7 @@ module Renstar
     # It defines getters and instance variables for each key/value pair in the
     # info response from the API for clean access.
     #
-    class APIObject < Info
+    class Info < APIObject
     end
   end
 end

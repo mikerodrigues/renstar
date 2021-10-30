@@ -5,7 +5,7 @@ module Renstar
     # Represents an Alert in venstar
     # These alerts are for Air filter, Service, and UV Lamp
     #
-    class APIObject < Alert
+    class Alert < APIObject
     end
   end
 end

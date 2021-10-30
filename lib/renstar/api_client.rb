@@ -7,6 +7,8 @@ require_relative 'api_client/query'
 require_relative 'api_client/control'
 require_relative 'api_client/settings'
 
+require_relative 'api_client/api_object'
+
 module Renstar
   # The actual client that handles getting, posting, and parsing API responses
   #
