@@ -48,7 +48,7 @@ module Renstar
     def heat(heattemp = nil)
       update
       if heattemp
-        cooltemp = heattemp + 1.0
+        cooltemp = heattemp.to_i + 1
       else
         cooltemp = @cached_info.cooltemp
         heattemp = @cached_info.heattemp
@@ -61,7 +61,7 @@ module Renstar
     def cool(cooltemp = nil)
       update
       if cooltemp
-        heattemp = cooltemp - 1.0
+        heattemp = cooltemp.to_i - 1
         # heattemp = cooltemp - @cached_info.setpointdelta
       else
         cooltemp = @cached_info.cooltemp
