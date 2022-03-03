@@ -60,7 +60,7 @@ thermo.fan_toggle
 ```ruby
 thermo.schedule_on
 
-thermo.scheduel_off
+thermo.schedule_off
 
 thermo.schedule_toggle
 ```
