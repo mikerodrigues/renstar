@@ -1,50 +1,43 @@
 require 'renstar'
 require 'optparse'
 require 'ostruct'
+require 'pry'
 
-class RenstarOptions
-  DEFAULT_OPTIONS = { all: false }.freeze
-  USAGE = " Usage: renstar.rb command [value]"
+options = {}
 
-  def self.parse(args)
-
-    @options = OpenStruct.new(DEFAULT_OPTIONS)
-
-    options = OptionParser.new do |opts|
-      opts.banner = USAGE
-
-      opts.on '-d', '--discover', 'Discover all Renstar devices' do |d|
-        @options.discover = true
-      end
-
-      opts.on '-h', '--help', 'Display this screen' do |h|
-        @options.help = true
-      end
-    end
-
-    options.parse!(args)
-
-    puts options if @options && ARGV == []
-
-    if @options.discover
-      Renstar.discover.each do |device|
-        puts "#{device.name} #{device.ip}"
-      end
-      exit 0
-    end
-
-    if @options.help
-      puts opts
-      exit 0
-    end
+#DEFAULT_OPTIONS = { all: false }.freeze
 
 
+USAGE = " Usage: renstar.rb command [value]"
+
+OptionParser.new do |opts|
+
+  opts.banner = USAGE
+
+  opts.on '-d', '--discover', 'Discover all Renstar devices' do |d|
+    options[:discover] = true
   end
+
+  opts.on '-h', '--help', 'Display this screen' do |h|
+    puts opts
+    exit 0
+  end
+end.parse!
+
+if options[:discover]
+  thermos = Renstar::Thermostat.search
+  thermos.each do |thermo|
+    puts "Found: #{thermo.location} #{thermo.usn}"
+  end
+  exit 0
 end
 
-@options = RenstarOptions.parse(ARGV)
 
-thermo = Renstar::Thermostat.search.first
-
-
-thermo.send(*ARGV)
+thermos = Renstar::Thermostat.search
+thermos.each do |thermo|
+  puts "Found: #{thermo.location} #{thermo.usn}"
+end
+puts "Using: " + thermos.first.location + " - " + thermos.first.usn
+unless (ARGV.nil? || ARGV.empty?)
+  puts thermos.first.send(*ARGV)
+end
