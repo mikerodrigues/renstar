@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'ssdp'
+require 'socket'
 require_relative 'api_client'
 
 module Renstar
@@ -11,27 +12,42 @@ module Renstar
   #
   class Thermostat
     SERVICE = 'venstar:thermostat:ecp'
-    DEFAULT_TIMEOUT = 5
+    DEFAULT_TIMEOUT = 3
 
     attr_reader :location, :usn, :cached_info
 
     include APIClient
 
-    def initialize(location, usn)
-      @location = location
-      @usn = usn
+    def initialize(location, usn = nil)
+      if location && usn then
+        @location = location
+        @usn = usn
+      else
+        @location = "http://" + location + '/'
+        @usn = ""
+      end
+
       @cache_timestamp = Time.now
       @cached_info = info
     end
 
     def self.search(timeout = DEFAULT_TIMEOUT)
-      ssdp = SSDP::Consumer.new
-      thermos = ssdp.search(service: SERVICE, timeout: timeout)
-      thermos.map do |thermo|
-        location = thermo[:params]['Location']
-        usn = thermo[:params]['USN']
-        Renstar::Thermostat.new(location, usn)
+      all_thermos = []
+      ips = Socket.ip_address_list.select do |ip|
+        ip.ipv4? &&
+          !ip.ipv4_loopback?
       end
+      ips.each do |ip|
+        puts "Searching subnet associated with #{ip.ip_address}"
+        ssdp = SSDP::Consumer.new({bind: ip.ip_address})
+        thermos = ssdp.search(service: SERVICE, timeout: timeout)
+        thermos.each do |thermo|
+          location = thermo[:params]['Location']
+          usn = thermo[:params]['USN']
+          all_thermos << Renstar::Thermostat.new(location, usn)
+        end
+      end
+      all_thermos
     end
 
     def update
