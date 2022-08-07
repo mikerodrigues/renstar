@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'json'
-  spec.add_runtime_dependency 'ssdp', '~> 1.1.7'
+  spec.add_runtime_dependency 'ssdp', '~> 1.2.0'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

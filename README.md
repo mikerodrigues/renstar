@@ -41,11 +41,6 @@ The binary chooses the first thermostat it finds on the network, so you may get
 unexpected results if you have more than one on your network. I do plan on
 improving this.
 
-### Note about multi-homed environments
-You may have trouble with discovery on multi-homed hosts, but I'm working with
-the author of the `ssdp` library to fix this, so I expect it to improve. You can
-install my fork of `ssdp` from github if you need multi-homed support now.
-
 ## Using the library
 
 First we need to create a `Thermostat` object.
