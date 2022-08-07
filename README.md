@@ -76,7 +76,7 @@ thermo.runtimes
 * See alerts and their status:
 ```ruby
 thermo.alerts
-
+```
 
 ### Control
 
