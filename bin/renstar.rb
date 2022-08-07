@@ -1,6 +1,7 @@
 require 'renstar'
 require 'optparse'
 require 'ostruct'
+require 'pry'
 
 options = {}
 
@@ -38,5 +39,13 @@ thermos.each do |thermo|
 end
 puts "Using: " + thermos.first.location + " - " + thermos.first.usn
 unless (ARGV.nil? || ARGV.empty?)
-  puts thermos.first.send(*ARGV)
+  response = thermos.first.send(*ARGV)
+  case response
+  when String
+    puts response
+  when Renstar::APIClient::APIObject
+    response.pp
+  when Array
+    response.each {|x| x.pp }
+  end
 end

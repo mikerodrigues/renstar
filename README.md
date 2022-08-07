@@ -20,12 +20,68 @@ Or install it yourself as:
 
     $ gem install renstar
 
-## Usage
+## Using the included binary
+
+When installing the gem, we install `renstar.rb` for you automatically. You can
+pass the `-h` flag for more info.
+
+The help page does not list all the accepted commands or their values but all of
+the methods below are supported. The binary just passes your arguments to the
+methods below.
+
+So, if you want to cool your house to 72 using the binary, you can do this:
+```ruby
+renstar.rb cool 72
+```
+
+You can apply the logic above to any of the methods below for the same effect.
+
+The binary chooses the first thermostat it finds on the network, so you may get
+unexpected results if you have more than one on your network. I do plan on
+improving this.
+
+You may have trouble with discovery on multi-homed hosts, but I'm working with
+the author of the `ssdp` library to fix this, so I expect it to improve. You can
+install my fork of `ssdp` from github if you need multi-homed support now.
+
+## Using the library
+
+First we need to create a `Thermostat` object.
 
 * Search for thermostats on the LAN, return the first one found:
 ```ruby
 thermo = Renstar::Thermostat.search.first
 ```
+
+### Query
+
+These methods let you see the thermostat info (controls and settings status), sensor info, runtimes, and
+alerts.
+
+* Get information about the thermostat:
+```ruby
+thermo.info
+```
+
+* Get the current sensors and their readings:
+```ruby
+thermo.sensors
+```
+
+* Get runtimes:
+```ruby
+thermo.runtimes
+```
+
+* See alerts and their status:
+```ruby
+thermo.alerts
+
+
+### Control
+
+These methods let you control the thermostat temperature controls, and fan. You
+can use the `info` method to check the current state of these controls.
 
 * Heat to 80 degrees:
 ```ruby
@@ -42,7 +98,7 @@ thermo.cool(60)
 thermo.auto(70, 74)
 ```
 
-* Turn off heeating and/or cooling
+* Turn off heating and/or cooling
 ```ruby
 thermo.off
 ```
@@ -56,7 +112,13 @@ thermo.fan_off
 thermo.fan_toggle
 ```
 
-* Control the schedule:
+### Settings
+
+These methods let you change the schedule and vacation settings on your
+thermostat. You can use the `info` method to check the current state of the
+settings.
+
+* Set the schedule:
 ```ruby
 thermo.schedule_on
 
@@ -71,8 +133,6 @@ thermo.home
 
 thermo.away
 ```
-
-
 
 ## Development
 

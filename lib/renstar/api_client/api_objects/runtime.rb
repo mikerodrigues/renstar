@@ -8,6 +8,9 @@ module Renstar
     # Breaks down how much time the system spent in various states
     # like heating or cooling.
     class Runtime < APIObject
+      def pp
+        puts human_readable('runtimes')
+      end
     end
   end
 end

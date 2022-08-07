@@ -9,6 +9,9 @@ module Renstar
     # info response from the API for clean access.
     #
     class Info < APIObject
+      def pp
+        puts human_readable('info')
+      end
     end
   end
 end
