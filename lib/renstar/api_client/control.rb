@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../api_client'
 module Renstar
   module APIClient
     # Interface to the "Control" portion of the Venstar API

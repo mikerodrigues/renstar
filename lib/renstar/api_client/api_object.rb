@@ -31,7 +31,6 @@ module Renstar
                  { description: description, formatted_value: formatted_value })
         end.join
       end
-
     end
   end
 end

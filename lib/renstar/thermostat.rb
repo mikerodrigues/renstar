@@ -12,6 +12,7 @@ module Renstar
   #
   class Thermostat
     SERVICE = 'venstar:thermostat:ecp'
+    USN_REGEX = /^(\w+):(\w+)+:((?:[0-9a-fA-F]{2}:?)+):name:(.*):type:(.*)/
     DEFAULT_TIMEOUT = 3
 
     attr_reader :location, :usn, :cached_info
@@ -19,12 +20,12 @@ module Renstar
     include APIClient
 
     def initialize(location, usn = nil)
-      if location && usn then
+      if location && usn
         @location = location
         @usn = usn
       else
-        @location = "http://" + location + '/'
-        @usn = ""
+        @location = "http://#{location}/"
+        @usn = ''
       end
 
       @cache_timestamp = Time.now
@@ -39,7 +40,7 @@ module Renstar
       end
       ips.each do |ip|
         puts "Searching subnet associated with #{ip.ip_address}"
-        ssdp = SSDP::Consumer.new({bind: ip.ip_address})
+        ssdp = SSDP::Consumer.new({ bind: ip.ip_address })
         thermos = ssdp.search(service: SERVICE, timeout: timeout)
         thermos.each do |thermo|
           location = thermo[:params]['Location']

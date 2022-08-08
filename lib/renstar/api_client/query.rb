@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../api_client'
 require_relative 'api_objects/info'
 require_relative 'api_objects/sensor'
 require_relative 'api_objects/runtime'

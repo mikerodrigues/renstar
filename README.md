@@ -22,6 +22,10 @@ Or install it yourself as:
 
 ## Using the included binary
 
+Well, OK, it's just a script that uses the library, but it wraps all of the
+functionality and lets you just control your thermostat if that's all you're
+here for.
+
 When installing the gem, we install `renstar.rb` for you automatically. You can
 pass the `-h` flag for more info.
 
@@ -29,17 +33,21 @@ The help page does not list all the accepted commands or their values but all of
 the methods below are supported. The binary just passes your arguments to the
 methods below.
 
-So, if you want to cool your house to 72 using the binary, you can do this:
-```ruby
+So, if you want to cool your house to 72 using the binary, you can do this in
+your favorite shell:
+```bash
 renstar.rb cool 72
 ```
 
 You can apply the logic above to any of the methods below for the same effect.
 
 ### Note about thermostat selection
+
 The binary chooses the first thermostat it finds on the network, so you may get
-unexpected results if you have more than one on your network. I do plan on
-improving this.
+unexpected results if you have more than one on your network.
+
+You can use the `-t` option to pass the hostname or IP address of a thermostat
+if you know it and don't want to wait for autodiscovery to find it.
 
 ## Using the library
 
