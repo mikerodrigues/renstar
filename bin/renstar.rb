@@ -8,7 +8,30 @@ options = {}
 
 # DEFAULT_OPTIONS = { all: false }.freeze
 
-USAGE = ' Usage: renstar.rb command [value]'
+USAGE = ''' Usage: renstar.rb command [value]
+
+    Informational Commands:
+      info - Show current settings
+      sensors - Show current Sensor reading
+      runtimes - Last 7 days of usage times
+      alerts - Show alerts and their statuses
+    
+    Control Commands:
+     Note: Temp values are integers. Device settings determine units.
+      heat $TEMP - Heat to $TEMP
+      cool $TEMP - Cool to $TEMP
+      auto $LO_TEMP $HI_TEMP - Keep temp in between two temps
+      off - Turn off heating and/or cooling
+      fan_on - Turn on the fan
+      fan_off - Turn on the fan
+      fan_toggle - Toggle the fan on/off
+      schedule_on - Turn on the schedule
+      schedule_off - Turn off the schedule
+      schedule_toggle - Toggle the schedule on/off
+      home - Set "Home"
+      away - Set "Away"
+
+'''
 
 Options = Struct.new(:thermostat)
 args = Options.new
