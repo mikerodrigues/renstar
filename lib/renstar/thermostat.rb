@@ -35,13 +35,12 @@ module Renstar
       ips.each do |ip|
         all_thermos << ssdp_search(ip, timeout)
       end
-      all_thermos.flatten.map do | thermo |
+      all_thermos.flatten.map do |thermo|
         location = thermo[:params]['Location']
         usn = thermo[:params]['USN']
         Renstar::Thermostat.new(location, usn)
       end
     end
-
 
     def update
       @cache_timestamp = Time.now
