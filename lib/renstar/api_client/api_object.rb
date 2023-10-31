@@ -7,14 +7,11 @@ module Renstar
       def initialize(raw_hash)
         @raw_hash = raw_hash
         raw_hash.each do |key, value|
-          if key == 'ts'
-            instance_variable_set("@#{key}", Time.at(value))
-          else
-            instance_variable_set("@#{key}", value)
-          end
+          value = Time.at(value) if key == 'ts'
+          instance_variable_set("@#{key}", value)
 
           define_singleton_method(key) do
-            return instance_variable_get("@#{key}")
+            instance_variable_get("@#{key}")
           end
         end
       end

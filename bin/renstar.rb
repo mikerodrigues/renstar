@@ -8,14 +8,14 @@ options = {}
 
 # DEFAULT_OPTIONS = { all: false }.freeze
 
-USAGE = ''' Usage: renstar.rb command [value]
+USAGE = ' Usage: renstar.rb command [value]
 
     Informational Commands:
       info     - Show current settings
       sensors  - Show current Sensor reading
       runtimes - Show last 7 days of usage times
       alerts   - Show alerts and their statuses
-    
+
     Control Commands:
      Note: Temp values are integers. Device settings determine units.
       heat $TEMP             - Heat to $TEMP
@@ -31,7 +31,7 @@ USAGE = ''' Usage: renstar.rb command [value]
       home                   - Set "Home"
       away                   - Set "Away"
 
-'''
+'
 
 Options = Struct.new(:thermostat)
 args = Options.new
@@ -73,12 +73,11 @@ else
   thermo = thermos.first
   puts "Using: #{thermo.location} - #{thermo.usn}"
 end
-command = nil
-if ARGV.nil? || ARGV.empty?
-  command = 'info'
-else
-  command = ARGV
-end
+command = if ARGV.nil? || ARGV.empty?
+            'info'
+          else
+            ARGV
+          end
 
 response = thermo.send(*command)
 case response

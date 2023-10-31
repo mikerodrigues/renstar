@@ -35,8 +35,7 @@ module Renstar
     def self.search(timeout = DEFAULT_TIMEOUT)
       all_thermos = []
       ips = Socket.ip_address_list.select do |ip|
-        ip.ipv4? &&
-          !ip.ipv4_loopback?
+        ip.ipv4? && !ip.ipv4_loopback?
       end
       ips.each do |ip|
         puts "Searching subnet associated with #{ip.ip_address}"
@@ -113,11 +112,7 @@ module Renstar
     end
 
     def fan_toggle
-      if @cached_info.fan == 1
-        fan_off
-      else
-        fan_on
-      end
+      @cached_info.fan == 1 ? fan_off : fan_on
     end
 
     def schedule_off
@@ -133,11 +128,7 @@ module Renstar
     end
 
     def schedule_toggle
-      if @cached_info.schedule == 1
-        schedule_off
-      else
-        schedule_on
-      end
+      @cached_info.schedule == 1 ? schedule_off : schedule_on
     end
 
     def home
