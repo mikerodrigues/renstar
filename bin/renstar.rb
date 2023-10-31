@@ -67,6 +67,10 @@ if args.thermostat
   puts "Using: #{thermo.location}"
 else
   thermos = Renstar::Thermostat.search
+  if thermos.empty?
+    puts 'No thermostats found'
+    exit 0
+  end
   thermos.each do |t|
     puts "Found: #{t.location} #{t.usn}"
   end

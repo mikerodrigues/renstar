@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'api_client'
+require_relative 'discovery'
 
 module Renstar
   # Thermostat object
@@ -14,7 +15,7 @@ module Renstar
     attr_reader :location, :usn, :cached_info
 
     include APIClient
-    include Discovery
+    extend Discovery
 
     def initialize(location, usn = nil)
       if location && usn
