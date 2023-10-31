@@ -30,6 +30,19 @@ module Renstar
       @cached_info = info
     end
 
+    def self.search(timeout = 3)
+      all_thermos = []
+      ips.each do |ip|
+        all_thermos << ssdp_search(ip, timeout)
+      end
+      all_thermos.flatten.map do | thermo |
+        location = thermo[:params]['Location']
+        usn = thermo[:params]['USN']
+        Renstar::Thermostat.new(location, usn)
+      end
+    end
+
+
     def update
       @cache_timestamp = Time.now
       @cached_info = info
