@@ -4,6 +4,8 @@ Renstar is a Ruby SDK for interacting with the Venstar Thermostat Local API.
 
 You can control your thermostat programmatically!
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/bf690d0fd84e34b70080/maintainability)](https://codeclimate.com/github/mikerodrigues/renstar/maintainability)
+
 ## Installation
 
 Add this line to your application's Gemfile:
