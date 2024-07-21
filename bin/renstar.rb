@@ -83,7 +83,13 @@ command = if ARGV.nil? || ARGV.empty?
             ARGV
           end
 
+begin
 response = thermo.send(*command)
+rescue NoMethodError
+  puts "'#{command.join(' ')}' is not a valid command"
+  exit 1
+end
+
 case response
 when String
   puts response
