@@ -13,16 +13,25 @@ module Renstar
   # The actual client that handles getting, posting, and parsing API responses
   #
   module APIClient
+    class APIError < StandardError; end
+    class APIUnknownResponseError < StandardError; end
     def get(endpoint)
       uri = URI(location + endpoint)
-      response = Net::HTTP.get(uri)
-      JSON.parse(response)
+      response = Net::HTTP.get_response(uri)
+      JSON.parse(response.body)
     end
 
     def post(endpoint, options = {})
       uri = URI(location + endpoint)
       response = Net::HTTP.post_form(uri, options)
-      JSON.parse(response.body)
+      json = JSON.parse(response.body)
+      if json['error']
+        raise APIError.new(json['reason'])
+      elsif json['success']
+        json
+      else
+        raise APIUnknownResponseError.new(response.body)
+      end
     end
 
     include Query
