@@ -15,6 +15,7 @@ module Renstar
   module APIClient
     class APIError < StandardError; end
     class APIUnknownResponseError < StandardError; end
+
     def get(endpoint)
       uri = URI(location + endpoint)
       response = Net::HTTP.get_response(uri)
@@ -26,11 +27,11 @@ module Renstar
       response = Net::HTTP.post_form(uri, options)
       json = JSON.parse(response.body)
       if json['error']
-        raise APIError.new(json['reason'])
+        raise APIError, json['reason']
       elsif json['success']
         json
       else
-        raise APIUnknownResponseError.new(response.body)
+        raise APIUnknownResponseError, response.body
       end
     end
 

@@ -84,7 +84,7 @@ command = if ARGV.nil? || ARGV.empty?
           end
 
 begin
-response = thermo.send(*command)
+  response = thermo.send(*command)
 rescue NoMethodError
   puts "'#{command.join(' ')}' is not a valid command"
   exit 1

@@ -22,7 +22,7 @@ module Renstar
     def ssdp_search(ip, timeout = 5)
       puts "Searching subnet associated with #{ip.ip_address}"
       ssdp = SSDP::Consumer.new({ bind: ip.ip_address })
-      thermos = ssdp.search(service: SERVICE, timeout: timeout)
+      ssdp.search(service: SERVICE, timeout: timeout)
     end
   end
 end
