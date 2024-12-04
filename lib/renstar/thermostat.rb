@@ -52,27 +52,14 @@ module Renstar
     end
 
     def heat(heattemp = nil)
-      update
-      if heattemp
-        cooltemp = heattemp.to_i + 1
-      else
-        cooltemp = @cached_info.cooltemp
-        heattemp = @cached_info.heattemp
-      end
+      cooltemp, heattemp = set_temps(heattemp, 1)
       response = control("mode": 1, "cooltemp": cooltemp, "heattemp": heattemp)
       update
       response
     end
 
     def cool(cooltemp = nil)
-      update
-      if cooltemp
-        heattemp = cooltemp.to_i - 1
-        # heattemp = cooltemp - @cached_info.setpointdelta
-      else
-        cooltemp = @cached_info.cooltemp
-        heattemp = @cached_info.heattemp
-      end
+      cooltemp, heattemp = set_temps(cooltemp, 2)
       response = control("mode": 2, "cooltemp": cooltemp, "heattemp": heattemp)
       update
       response
@@ -131,6 +118,25 @@ module Renstar
       response = settings("away": 1)
       update
       response
+    end
+
+    private
+
+    def set_temps(temp, mode)
+      update
+      if temp
+        if mode == 1
+          cooltemp = temp.to_i + 1
+          heattemp = temp.to_i
+        else
+          cooltemp = temp.to_i
+          heattemp = temp.to_i - 1
+        end
+      else
+        cooltemp = @cached_info.cooltemp
+        heattemp = @cached_info.heattemp
+      end
+      [cooltemp, heattemp]
     end
   end
 end
